@@ -12,7 +12,27 @@ export class UserController {
                 nickname,
                 email,
                 password,
-                type
+                type,
+            });
+
+            res.status(200).send({ token });
+        } catch (error) {
+            res.status(400).send({ error: error.message });
+        };
+    };
+
+    async signupBand(req: Request, res: Response) {
+        const { name, nickname, email, password, type, description, is_approved } = req.body
+
+        try {
+            const token = await new UserBusiness().signupBand({
+                name,
+                nickname,
+                email,
+                password,
+                type,
+                description,
+                is_approved
             });
 
             res.status(200).send({ token });

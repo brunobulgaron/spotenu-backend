@@ -24,3 +24,14 @@ export interface User {
     password: string,
     type: string
 }
+
+export interface UserBand {
+    id: string,
+    name: string,
+    nickname: string,
+    email: string,
+    password: string,
+    type: string,
+    description: string,
+    is_approved: boolean
+}
