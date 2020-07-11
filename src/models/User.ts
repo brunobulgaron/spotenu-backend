@@ -35,3 +35,15 @@ export interface UserBand {
     description: string,
     is_approved: boolean
 }
+
+export interface UserAdmin {
+    id: string,
+    name: string,
+    nickname: string,
+    email: string,
+    password: string,
+    type: string,
+    description: string,
+    is_approved: boolean,
+    token: string
+}

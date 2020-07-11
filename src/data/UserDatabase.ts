@@ -1,5 +1,5 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { signUpInputDTO } from "../dto/UserDTO";
+import { signUpInputDTO, signUpBandInputDTO, signUpAdminInputDTO } from "../dto/UserDTO";
 import { User } from "../models/User";
 
 export class UserDatabase extends BaseDatabase {
@@ -17,13 +17,37 @@ export class UserDatabase extends BaseDatabase {
         };        
     };
 
+    public async createUserBand(body: signUpBandInputDTO){        
+        try{
+            await super.getConnection()
+                .insert(body)
+                .into(BaseDatabase.TABLE_USER);
+
+            super.destroyConnection();            
+        }catch(error){
+            throw new Error(error.message);
+        };        
+    };
+
+    public async createUserAdmin(body: signUpAdminInputDTO){        
+        try{
+            await super.getConnection()
+                .insert(body)
+                .into(BaseDatabase.TABLE_USER);
+
+            super.destroyConnection();            
+        }catch(error){
+            throw new Error(error.message);
+        };        
+    };
+
     public async getUserByEmail(email: string): Promise<User>{
         const result = await this.getConnection()
             .select("*")
             .where({ email })
             .from(UserDatabase.TABLE_USER);
         
-        return result[0];
+        return result[0];        
     };
     
     

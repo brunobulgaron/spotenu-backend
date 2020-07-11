@@ -1,9 +1,9 @@
-import { signUpInputDTO, loginInputDTO, signUpBandInputDTO } from "../dto/UserDTO";
+import { signUpInputDTO, loginInputDTO, signUpBandInputDTO, signUpAdminInputDTO } from "../dto/UserDTO";
 import { HashManager } from "../services/HashManager";
 import { IdGenerator } from "../services/IdGenerator";
 import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
-import { User, UserBand } from "../models/User";
+import { User, UserBand, UserAdmin } from "../models/User";
 import { failureMessages, successMessages } from "../messages";
 
 export class UserBusiness{
@@ -72,18 +72,65 @@ export class UserBusiness{
             is_approved: false
         }
 
-        await new UserDatabase().createUser(userData);
+        await new UserDatabase().createUserBand(userData);
     
         const token = new Authenticator().generateToken({ id });
 
         // return { token };
         return { message: successMessages.successfulBandSignUp }
     };
+    
+    public async signupAdmin({
+        name, nickname, email, password, type, description, is_approved, token
+    }: signUpAdminInputDTO) {
 
-    public async login({ email, password}: loginInputDTO) {
+        // E-mail validations
+        const emailExists = await new UserDatabase().getUserByEmail(email)
+        if(emailExists) throw new Error(failureMessages.emailExists);
+
+        if(email.length < 6) throw new Error(failureMessages.invalidEmail);
+        if(!email.includes("@")) throw new Error(failureMessages.invalidEmail);
+
+        // Password validation
+        if(password.length < 10 || !password){
+            throw new Error(failureMessages.passwordAdmin)
+        };
+
+        // Admin token validation
+        const auth_token = token;
+
+        const authenticator = new Authenticator().getData(auth_token);
+
+        if(authenticator.type !== "admin"){
+            throw new Error(failureMessages.notAdmin)            
+        };
+        
+        // 
+        const hashedPassword = await new HashManager().hash(password);
+        const id = new IdGenerator().generate();
+
+        const userData: UserAdmin = {
+            id,
+            name,
+            nickname,
+            email,
+            password: hashedPassword,
+            type: "admin",
+            description,
+            is_approved: true,
+            token
+        }
+
+        await new UserDatabase().createUserAdmin(userData);
+    
+        const tokenTest = new Authenticator().generateToken({ id });
+
+        return { tokenTest };
+    };
+
+    public async login({ email, password, type}: loginInputDTO) {
         // E-mail validation
         const emailValidation = await new UserDatabase().getUserByEmail(email)
-
         if(!emailValidation){
             throw new Error(failureMessages.emailDoesntExists)
         };
@@ -96,7 +143,7 @@ export class UserBusiness{
         if(!passwordValidation){
             throw new Error(failureMessages.wrongPassword)
         };
-
+      
         const token = new Authenticator().generateToken({ id: emailValidation.id })
 
         return { token };

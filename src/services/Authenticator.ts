@@ -13,7 +13,7 @@ export class Authenticator{
         const payload = jwt.verify(token, process.env.JWT_KEY as string) as any;
         const result = {
             id: payload.id,
-            type: payload.type
+            type: payload.type,
         };
         return result;
     };
@@ -21,5 +21,5 @@ export class Authenticator{
 
 export interface AuthenticatorData{
     id: string;
-    type?: string
+    type?: string;
 };
