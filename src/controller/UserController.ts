@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
+import { Authenticator } from "../services/Authenticator";
+import { failureMessages } from "../messages";
 
 export class UserController {
 
@@ -41,12 +43,17 @@ export class UserController {
         };
     };
     
-    async signupAdmin(req: Request, res: Response) {
-        const { name, nickname, email, password, type, description, is_approved } = req.body
-
-        const auth = req.headers.authorization as string;
-
+    async signupAdmin(req: Request, res: Response) {        
         try {
+            const { name, nickname, email, password, type, description, is_approved } = req.body
+
+            const auth = req.headers.authorization as string;
+
+            const authenticator = new Authenticator().getData(auth);
+
+            if(authenticator.type !== "admin"){
+                return res.status(400).send({message: failureMessages.notAdmin})
+            };
             const tokenTest = await new UserBusiness().signupAdmin({
                 name,
                 nickname,
@@ -54,8 +61,7 @@ export class UserController {
                 password,
                 type,
                 description,
-                is_approved,
-                token: auth
+                is_approved,                
             });
 
             res.status(200).send({ tokenTest });
@@ -69,13 +75,13 @@ export class UserController {
 
         try{
 
-            const token = await new UserBusiness().login({
+            const tokenTeste = await new UserBusiness().login({
                 email,
                 password,
-                type
+                type,
             });
 
-            res.status(200).send({ token })
+            res.status(200).send({ tokenTeste })
 
         }catch(error){
             res.status(400).send({ error: error.message });

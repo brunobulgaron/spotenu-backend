@@ -45,5 +45,5 @@ export interface UserAdmin {
     type: string,
     description: string,
     is_approved: boolean,
-    token: string
+    // token: string // ???
 }

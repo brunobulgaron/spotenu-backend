@@ -1,6 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { signUpInputDTO, signUpBandInputDTO, signUpAdminInputDTO } from "../dto/UserDTO";
-import { User } from "../models/User";
+import { User, UserAdmin } from "../models/User";
 
 export class UserDatabase extends BaseDatabase {
     tableName: string = "Spotenu_Users";
@@ -48,6 +48,15 @@ export class UserDatabase extends BaseDatabase {
             .from(UserDatabase.TABLE_USER);
         
         return result[0];        
+    };
+
+    public async getUserByType(type: string): Promise<UserAdmin>{
+        const result = await this.getConnection()
+            .select("*")
+            .where({ type })
+            .from(UserDatabase.TABLE_USER)
+        
+        return result[0];
     };
     
     

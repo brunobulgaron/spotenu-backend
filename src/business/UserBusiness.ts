@@ -81,7 +81,7 @@ export class UserBusiness{
     };
     
     public async signupAdmin({
-        name, nickname, email, password, type, description, is_approved, token
+        name, nickname, email, password, type, description, is_approved
     }: signUpAdminInputDTO) {
 
         // E-mail validations
@@ -95,17 +95,7 @@ export class UserBusiness{
         if(password.length < 10 || !password){
             throw new Error(failureMessages.passwordAdmin)
         };
-
-        // Admin token validation
-        const auth_token = token;
-
-        const authenticator = new Authenticator().getData(auth_token);
-
-        if(authenticator.type !== "admin"){
-            throw new Error(failureMessages.notAdmin)            
-        };
-        
-        // 
+                 
         const hashedPassword = await new HashManager().hash(password);
         const id = new IdGenerator().generate();
 
@@ -117,13 +107,12 @@ export class UserBusiness{
             password: hashedPassword,
             type: "admin",
             description,
-            is_approved: true,
-            token
+            is_approved: true,            
         }
 
         await new UserDatabase().createUserAdmin(userData);
     
-        const tokenTest = new Authenticator().generateToken({ id });
+        const tokenTest = new Authenticator().generateToken({ id, type: userData.type });
 
         return { tokenTest };
     };
@@ -143,9 +132,12 @@ export class UserBusiness{
         if(!passwordValidation){
             throw new Error(failureMessages.wrongPassword)
         };
-      
-        const token = new Authenticator().generateToken({ id: emailValidation.id })
 
-        return { token };
+        const resultTeste = new Authenticator().generateToken({ 
+            id: emailValidation.id,
+            type: emailValidation.type
+        });
+
+        return { resultTeste };
     };
 };

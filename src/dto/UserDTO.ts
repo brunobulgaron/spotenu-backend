@@ -27,11 +27,11 @@ export interface signUpAdminInputDTO {
         type: string,
         description: string,
         is_approved: boolean,
-        token: string
+        // token: string
 };
 
 export interface loginInputDTO {
         email: string,
         password: string,
-        type: string
+        type: string,
 };
