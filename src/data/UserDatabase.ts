@@ -50,14 +50,14 @@ export class UserDatabase extends BaseDatabase {
         return result[0];        
     };
 
-    public async getUserByType(type: string): Promise<UserAdmin>{
-        const result = await this.getConnection()
-            .select("*")
-            .where({ type })
-            .from(UserDatabase.TABLE_USER)
+    // public async getUserByType(type: string): Promise<UserAdmin>{
+    //     const result = await this.getConnection()
+    //         .select("*")
+    //         .where({ type })
+    //         .from(UserDatabase.TABLE_USER)
         
-        return result[0];
-    };
+    //     return result[0];
+    // };
     
     
     
