@@ -6,7 +6,8 @@ export enum failureMessages {
     emailDoesntExists = "E-mail ou Senha incorreto.",
     invalidEmail = "E-mail inválido",
     notAdmin = "Permissão inválida!",
-    bandAlreadyApproved = "Essa Banda já foi aprovada!"
+    bandAlreadyApproved = "Essa Banda já foi aprovada!",
+    bandDoesntExists = "Banda inexistente!"
 };
 
 export enum successMessages {

@@ -20,6 +20,9 @@ export class BandDatabase extends BaseDatabase {
         
         const data = result[0];
 
+        if(data === undefined || null){
+            throw new Error(failureMessages.bandDoesntExists);
+        }
         
         if(data.is_approved === 1){
             throw new Error(failureMessages.bandAlreadyApproved)

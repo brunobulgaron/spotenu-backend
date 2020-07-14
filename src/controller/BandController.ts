@@ -46,7 +46,10 @@ export class BandController {
 
             const id = req.params.id;
 
-            const approveBandDB = await new BandDatabase().approveBandDB(id);
+            const approveBandDB: any = await new BandDatabase().approveBandDB(id);
+            if(!approveBandDB){
+                throw new Error(failureMessages.bandDoesntExists)
+            }
 
             res.status(200).send({message: successMessages.bandSuccessfullyApproved});
         
