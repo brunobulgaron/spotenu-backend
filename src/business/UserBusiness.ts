@@ -5,6 +5,7 @@ import { UserDatabase } from "../data/UserDatabase";
 import { Authenticator } from "../services/Authenticator";
 import { User, UserBand, UserAdmin } from "../models/User";
 import { failureMessages, successMessages } from "../messages";
+import { BandDatabase } from "../data/BandDatabase";
 
 export class UserBusiness{
     public async signup({
@@ -133,7 +134,7 @@ export class UserBusiness{
             throw new Error(failureMessages.wrongPassword)
         };
 
-        const resultTeste = new Authenticator().generateToken({ 
+        const resultTeste: any = new Authenticator().generateToken({ 
             id: emailValidation.id,
             type: emailValidation.type
         });
