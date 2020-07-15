@@ -48,7 +48,6 @@ export class UserController {
             const { name, nickname, email, password, type, description, is_approved } = req.body
 
             const auth = req.headers.authorization as string;
-
             const authenticator = new Authenticator().getData(auth);
 
             if(authenticator.type !== "admin"){
