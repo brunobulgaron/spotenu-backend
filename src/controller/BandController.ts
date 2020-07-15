@@ -18,7 +18,7 @@ export class BandController {
 
             const bandsDB = await new BandDatabase().getAllBands("band");
             const allBands = bandsDB.map((band) => {
-                return {
+                return {                    
                     id: band.id,
                     name: band.name,
                     nickname: band.nickname,
@@ -46,15 +46,14 @@ export class BandController {
 
             const id = req.params.id;
 
-            const approveBandDB: any = await new BandDatabase().approveBandDB(id);
-            if(!approveBandDB){
+            await new BandDatabase().approveBandDB(id);
+            if(!id){
                 throw new Error(failureMessages.bandDoesntExists)
-            }
+            };
 
             res.status(200).send({message: successMessages.bandSuccessfullyApproved});
         
         }catch(error){
-            console.log(error);
             res.status(400).send({ error: error.message });
         };
     };
