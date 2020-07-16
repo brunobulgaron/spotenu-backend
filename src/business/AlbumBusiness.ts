@@ -5,9 +5,9 @@ import { Album } from "../models/Album";
 import { AlbumDatabase } from "../data/AlbumDatabase";
 
 export class AlbumBusiness {
-    public async createAlbum({ name, albumGenres, created_by }: albumDTO) {
+    public async createAlbum({ name, created_by, id_genre }: albumDTO) {
 
-        if(!name || !albumGenres){
+        if(!name){
             throw new Error(failureMessages.invalidAlbum);
         };
 
@@ -16,8 +16,9 @@ export class AlbumBusiness {
         const albumData: Album = {
             id,
             name,
-            created_by
-        };
+            created_by,
+            id_genre
+        };        
 
         const albumInfo = new AlbumDatabase().createAlbum(albumData)
 

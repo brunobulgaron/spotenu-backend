@@ -6,7 +6,7 @@ import { AlbumBusiness } from "../business/AlbumBusiness";
 export class AlbumController {
     async createAlbum(req: Request, res: Response){
         try{
-            const { name, albumGenres } = req.body;
+            const { name, id_genre } = req.body;
             
             const auth = req.headers.authorization as string;
             const authenticator = new Authenticator().getData(auth);
@@ -15,7 +15,7 @@ export class AlbumController {
                 return res.status(400).send({message: failureMessages.notBand})
             };
 
-            await new AlbumBusiness().createAlbum({ name, albumGenres, created_by: authenticator.id });
+            await new AlbumBusiness().createAlbum({ name, id_genre, created_by: authenticator.id });
 
             res.status(200).send({ message: successMessages.albumSuccessfullyCreated });
 

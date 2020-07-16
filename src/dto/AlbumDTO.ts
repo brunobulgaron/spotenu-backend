@@ -1,5 +1,7 @@
+import { Genre } from "../models/Genre";
+
 export interface albumDTO {
-    name: string;
-    albumGenres: string[],
-    created_by: string
+    name: string,
+    created_by: string,
+    id_genre: Genre[]
 };
