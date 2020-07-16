@@ -22,5 +22,19 @@ export class AlbumDatabase extends BaseDatabase {
         }catch(error){
             throw new Error(error.message);
         };
-    };    
+    };
+
+    public async getAlbumById(id: string): Promise<Album>{
+        try{
+            const result = await super.getConnection()
+                .select("*")
+                .from(BaseDatabase.TABLE_ALBUM)
+                .where({ id })
+
+            return result[0];
+            
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
 };

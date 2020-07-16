@@ -22,7 +22,9 @@ export interface User {
     nickname: string,
     email: string,
     password: string,
-    type: string
+    type: string,
+    description?: string,
+    is_approved: boolean
 }
 
 export interface UserBand {

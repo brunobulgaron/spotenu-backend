@@ -33,7 +33,8 @@ export class UserBusiness{
             nickname,
             email,
             password: hashedPassword,
-            type
+            type,
+            is_approved: true
         }
 
         await new UserDatabase().createUser(userData);
@@ -123,6 +124,10 @@ export class UserBusiness{
         const emailValidation = await new UserDatabase().getUserByEmail(email)
         if(!emailValidation){
             throw new Error(failureMessages.emailDoesntExists)
+        };
+
+        if(!emailValidation.is_approved){
+            throw new Error(failureMessages.bandNotApproved);
         };
 
         const passwordValidation = await new HashManager().compare(

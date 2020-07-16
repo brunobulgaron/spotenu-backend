@@ -7,6 +7,7 @@ export abstract class BaseDatabase{
     protected static TABLE_GENRE: string = "Spotenu_Genres";
     protected static TABLE_ALBUM: string = "Spotenu_Albums";
     protected static TABLE_ALBUMS_GENRES: string = "Spotenu_Albums_Genres";
+    protected static TABLE_SONGS: string = "Spotenu_Songs";
 
     private static connection: Knex | null = null;
 

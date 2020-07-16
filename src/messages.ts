@@ -17,7 +17,11 @@ export enum failureMessages {
     genreAlreadyExists = "Esse gênero já existe.",
     invalidGenre = "O Gênero deve conter 3 caracteres ou mais.",
 
-    invalidAlbum = "Preencha os campos nome e gênero(s)."
+    invalidAlbum = "Preencha os campos nome e gênero(s).",
+    albumDoesntExists = "Álbum inexistente!",
+
+    invalidSong = "Preencha todos os campos.",
+    songAlreadyExists = "Essa música já existe nesse álbum."
 };
 
 export enum successMessages {
@@ -27,5 +31,7 @@ export enum successMessages {
 
     genreSuccessfullyCreated = "Gênero criado com sucesso!",
 
-    albumSuccessfullyCreated = "Álbum criado com sucesso!"
+    albumSuccessfullyCreated = "Álbum criado com sucesso!",
+
+    songSuccessfullyCreated = "Música criada com sucesso!"
 }
