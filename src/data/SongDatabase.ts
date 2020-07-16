@@ -12,4 +12,18 @@ export class SongDatabase extends BaseDatabase {
             throw new Error(error.message);
         };
     };
+
+    public async getSongByName(name: string){
+        try {
+            const result = await super.getConnection()
+                .select("*")
+                .from(BaseDatabase.TABLE_SONGS)
+                .where({ name })
+            
+            return result[0];
+        
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
 };

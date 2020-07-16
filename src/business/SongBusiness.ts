@@ -17,6 +17,11 @@ export class SongBusiness {
             throw new Error(failureMessages.albumDoesntExists);
         };
 
+        const songValidation = await new SongDatabase().getSongByName(name);
+        if(songValidation){
+            throw new Error(failureMessages.songAlreadyExists);
+        };
+
         const id = new IdGenerator().generate();
 
         const songData: Song = {
