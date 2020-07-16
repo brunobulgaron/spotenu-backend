@@ -12,9 +12,12 @@ export enum failureMessages {
     bandAlreadyApproved = "Essa Banda já foi aprovada!",
     bandDoesntExists = "Banda inexistente!",
     bandNotApproved = "Aguarde sua banda ser aprovada.",
+    notBand = "Somente Bandas podem criar álbuns.",
     
     genreAlreadyExists = "Esse gênero já existe.",
-    invalidGenre = "O Gênero deve conter 3 caracteres ou mais."
+    invalidGenre = "O Gênero deve conter 3 caracteres ou mais.",
+
+    invalidAlbum = "Preencha os campos nome e gênero(s)."
 };
 
 export enum successMessages {
@@ -22,5 +25,7 @@ export enum successMessages {
     
     bandSuccessfullyApproved = "Banda aprovada com sucesso!",
 
-    genreSuccessfullyCreated = "Gênero criado com sucesso!"
+    genreSuccessfullyCreated = "Gênero criado com sucesso!",
+
+    albumSuccessfullyCreated = "Álbum criado com sucesso!"
 }
