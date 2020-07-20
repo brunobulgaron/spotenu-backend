@@ -9,7 +9,10 @@ import { songRouter } from "./router/SongRouter";
 
 dotenv.config();
 
+let cors = require('cors');
+
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 app.use("/user", userRouter);
@@ -18,7 +21,7 @@ app.use("/genre", genreRouter);
 app.use("/album", albumRouter);
 app.use("/song", songRouter);
 
-const server = app.listen(process.env.PORT || 3000, () => {
+const server = app.listen(process.env.PORT || 5000, () => {
   if (server) {
     const address = server.address() as AddressInfo;
     console.log(`Server is running in http://localhost:${address.port}`);
