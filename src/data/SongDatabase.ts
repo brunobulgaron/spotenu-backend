@@ -1,5 +1,6 @@
 import { BaseDatabase } from "./BaseDatabase";
 import { Song } from "../models/Song";
+import { BandDatabase } from "./BandDatabase";
 
 export class SongDatabase extends BaseDatabase {
     public async createSong(body: Song){
@@ -22,6 +23,19 @@ export class SongDatabase extends BaseDatabase {
             
             return result[0];
         
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
+
+    public async getAllSongs() {
+        try{
+            const result = await super.getConnection()
+                .select("*")
+                .from(BandDatabase.TABLE_SONGS)
+            
+            return result;
+            
         }catch(error){
             throw new Error(error.message);
         };

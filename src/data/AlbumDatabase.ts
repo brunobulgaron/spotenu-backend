@@ -37,4 +37,17 @@ export class AlbumDatabase extends BaseDatabase {
             throw new Error(error.message);
         };
     };
+
+    public async getAllAlbums() {
+        try{
+            const result = await super.getConnection()
+                .select("*")
+                .from(BaseDatabase.TABLE_ALBUM)
+            
+            return result;
+        
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
 };
