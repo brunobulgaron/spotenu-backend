@@ -21,7 +21,9 @@ export enum failureMessages {
     albumDoesntExists = "Álbum inexistente!",
 
     invalidSong = "Preencha todos os campos.",
-    songAlreadyExists = "Essa música já existe nesse álbum."
+    songAlreadyExists = "Essa música já existe nesse álbum.",
+
+    userDoesNotExists = "User inexistente!"
 };
 
 export enum successMessages {

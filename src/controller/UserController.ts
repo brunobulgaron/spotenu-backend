@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { UserBusiness } from "../business/UserBusiness";
 import { Authenticator } from "../services/Authenticator";
 import { failureMessages } from "../messages";
+import { UserDatabase } from "../data/UserDatabase";
 
 export class UserController {
 
@@ -81,6 +82,33 @@ export class UserController {
             });
 
             res.status(200).send({ tokenTeste })
+
+        }catch(error){
+            res.status(400).send({ error: error.message });
+        };
+    };
+
+    async getUserById(req: Request, res: Response){
+        try{
+            const auth = req.headers.authorization as string;
+
+            const authenticator = new Authenticator().getData(auth);
+
+            // if(authenticator.type !== "admin" && "user_band"){
+            //     return res.status(400).send({message: failureMessages.notAdmin})
+            // };
+
+            // const id = req.params.id;
+            
+            const usersDB = await new UserDatabase().getUserById(authenticator.id);
+            // if(authenticator.id){
+            //     throw new Error(failureMessages.userDoesNotExists)
+            // };
+
+            res.status(200).send({ result: {
+                name: usersDB.name,
+                email: usersDB.email,
+            } });
 
         }catch(error){
             res.status(400).send({ error: error.message });
