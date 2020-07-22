@@ -12,9 +12,9 @@ export class AlbumController {
             const auth = req.headers.authorization as string;
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "band"){
-                return res.status(400).send({message: failureMessages.notBand})
-            };
+            // if(authenticator.type !== "band"){
+            //     return res.status(400).send({message: failureMessages.notBand})
+            // };
 
             await new AlbumBusiness().createAlbum({ name, id_genre, created_by: authenticator.id });
 
@@ -31,16 +31,34 @@ export class AlbumController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "admin" && "user_band"){
+            if(authenticator.type !== "admin" || "band"){
                 return res.status(400).send({message: failureMessages.notAdmin})
             };
 
-            const albumsDB = await new AlbumDatabase().getAllAlbums();            
+            const albumsDB = await new AlbumDatabase().getAllAlbums();
 
             res.status(200).send({ result: albumsDB });
 
         }catch(error){
             res.status(400).send({ error: error.message });
+        };
+    };
+
+    async getAlbumsByCreatedBy(req: Request, res: Response){
+        try{
+            const auth = req.headers.authorization as string;
+
+            const authenticator = new Authenticator().getData(auth);
+
+            if(authenticator.type !== "band"){
+                return res.status(400).send({message: failureMessages.notAdmin})
+            };
+
+            const albumsDB = await new AlbumDatabase().getAlbumsByCreatedBy(authenticator.id);
+
+            res.status(200).send({ result: albumsDB });
+        }catch(error){
+            res.status(400).send({ error: error.message })
         };
     };
 };

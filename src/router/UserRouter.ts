@@ -16,4 +16,4 @@ userRouter.post("/signupAdmin", new UserController().signupAdmin);
 userRouter.post("/login", new UserController().login);
 
 // Buscar Perfil único
-userRouter.get("/:id", new UserController().getUserById);
+userRouter.get("/getUserById", new UserController().getUserById);

@@ -38,6 +38,20 @@ export class AlbumDatabase extends BaseDatabase {
         };
     };
 
+    public async getAlbumsByCreatedBy(created_by: string){
+        try{
+            const result = await super.getConnection()
+                .select("*")
+                .from(BaseDatabase.TABLE_ALBUM)
+                .where({ created_by })
+
+            return result;
+            
+        }catch(error){
+            throw new Error(error.message);
+        };
+    };
+
     public async getAllAlbums() {
         try{
             const result = await super.getConnection()

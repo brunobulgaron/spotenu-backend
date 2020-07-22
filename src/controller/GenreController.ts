@@ -31,9 +31,9 @@ export class GenreController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "admin" && "user_band"){
-                return res.status(400).send({message: failureMessages.notAdmin})
-            };
+            // if(authenticator.type !== "admin" && "band"){
+            //     return res.status(400).send({message: failureMessages.notAdmin})
+            // };
 
             const genresDB = await new GenreDatabase().getAllGenres();            
 

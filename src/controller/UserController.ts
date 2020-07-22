@@ -94,23 +94,20 @@ export class UserController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "admin" && "user_band"){
-                return res.status(400).send({message: failureMessages.notAdmin})
-            };
+            // if(authenticator.type !== "admin" && "user_band"){
+            //     return res.status(400).send({message: failureMessages.notAdmin})
+            // };
 
-            const id = req.params.id;
+            // const id = req.params.id;
             
-            const usersDB = await new UserDatabase().getUserById(id);
-            if(!id){
-                throw new Error(failureMessages.userDoesNotExists)
-            };
+            const usersDB = await new UserDatabase().getUserById(authenticator.id);
+            // if(authenticator.id){
+            //     throw new Error(failureMessages.userDoesNotExists)
+            // };
 
             res.status(200).send({ result: {
-                id: usersDB.id,
                 name: usersDB.name,
-                nickname: usersDB.nickname,
                 email: usersDB.email,
-                approved: usersDB.is_approved
             } });
 
         }catch(error){
