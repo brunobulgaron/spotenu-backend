@@ -34,6 +34,34 @@ export class BandController {
         };
     };
 
+    async getAllUnapprovedBands(req: Request, res: Response){
+        try{
+            const auth = req.headers.authorization as string;
+
+            const authenticator = new Authenticator().getData(auth);
+
+            if(authenticator.type !== "admin"){
+                return res.status(400).send({message: failureMessages.notAdmin})
+            };
+
+            const bandsDB = await new BandDatabase().getAllUnapprovedBands("0");
+            const allUnapprovedBands = bandsDB.map((band) => {
+                return {                    
+                    id: band.id,
+                    name: band.name,
+                    nickname: band.nickname,
+                    email: band.email,
+                    is_approved: band.is_approved
+                }
+            });
+
+            res.status(200).send({ allUnapprovedBands });
+
+        }catch(error){
+            res.status(400).send({ error: error.message });
+        };
+    };
+
     async approveBand(req: Request, res: Response){
         try{
             const auth = req.headers.authorization as string;

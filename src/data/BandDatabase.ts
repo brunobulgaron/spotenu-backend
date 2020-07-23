@@ -1,5 +1,4 @@
 import { BaseDatabase } from "./BaseDatabase";
-import { bandDTO } from '../dto/BandDTO';
 import { failureMessages } from "../messages";
 
 export class BandDatabase extends BaseDatabase {
@@ -10,6 +9,16 @@ export class BandDatabase extends BaseDatabase {
             .where({type})
         
         return result;
+    };
+
+    public async getAllUnapprovedBands(is_approved: string){
+        const result = await this.getConnection()
+            .select("*")
+            .from(BandDatabase.TABLE_USER)
+            .where({is_approved})
+        
+        return result;
+        
     };
 
     public async approveBandDB(id: string){       

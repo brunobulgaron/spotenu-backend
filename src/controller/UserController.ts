@@ -94,7 +94,7 @@ export class UserController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            // if(authenticator.type !== "admin" && "user_band"){
+            // if(authenticator.type !== "admin" || "band"){
             //     return res.status(400).send({message: failureMessages.notAdmin})
             // };
 
@@ -108,6 +108,7 @@ export class UserController {
             res.status(200).send({ result: {
                 name: usersDB.name,
                 email: usersDB.email,
+                type: usersDB.type
             } });
 
         }catch(error){

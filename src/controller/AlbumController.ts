@@ -31,7 +31,7 @@ export class AlbumController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "admin" || "band"){
+            if(authenticator.type !== "band"){
                 return res.status(400).send({message: failureMessages.notAdmin})
             };
 
