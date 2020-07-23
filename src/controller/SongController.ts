@@ -32,9 +32,9 @@ export class SongController {
 
             const authenticator = new Authenticator().getData(auth);
 
-            if(authenticator.type !== "admin" && "user_band"){
-                return res.status(400).send({message: failureMessages.notAdmin})
-            };
+            // if(authenticator.type !== "band"){
+            //     return res.status(400).send({message: failureMessages.notAdmin})
+            // };
 
             const songsDB = await new SongDatabase().getAllSongs();
 
@@ -43,5 +43,5 @@ export class SongController {
         }catch(error){
             res.status(400).send({ error: error.message });
         };
-    };
+    };    
 };
