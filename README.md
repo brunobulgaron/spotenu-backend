@@ -7,7 +7,7 @@ Full-Stack app inspired on Spotify.
 
 ## Stack :computer:
 Front-End: ReactJS, Material UI, Styled Components  
-Back-End: NodeJS, Express, MySQL, Knex, bcrypt, uuid
+Back-End: NodeJS, Express, MySQL, Knex, Bcrypt, Uuid, Dotenv, Moment
 
 ### Features :rocket:
 
@@ -28,7 +28,7 @@ All done
 ## How To Run :arrow_up:
 1. `git clone https://github.com/brunobulgaron/spotenu-frontend.git`
 2. `npm install` to install all the required dependencies;
-3. `npm run start` to run the project on your local environment;
+3. `npm run start:dev` to run the server
 
 ## Created By :grin:
 Bruno Bulgaron
